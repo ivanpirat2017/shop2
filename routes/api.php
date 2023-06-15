@@ -61,7 +61,7 @@ Route::middleware('auth:api')->post('/add_product', [ProductContriller::class ,'
 Route::get('/product', [ProductContriller::class ,'getProduct']);
 Route::get('/product/{id}', [ProductContriller::class ,'getProductCatig']);
 Route::middleware('auth:api')->get('/product_delete/{id}', [ProductContriller::class ,'deleteProduct']);
-Route::get('/cart', [ProductContriller::class ,'getCartProduct']);
+Route::post('/cart', [ProductContriller::class ,'getCartProduct']);
 
 
 /*AUTH - USER */
