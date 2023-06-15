@@ -10,7 +10,7 @@ class AdressContriller extends Controller
     function addAdress(Request $request)
     {
         $valide = Validator::make($request->all(), [
-            'name' => 'required|max:100|unique:adress,name',
+            'name' => 'required|max:100|unique:adresses,name',
         ]);
 
         if ($valide->fails()) {
@@ -19,7 +19,7 @@ class AdressContriller extends Controller
             ], 422);
         }
 
-        DB::table('adress')->insert([
+        DB::table('adresses')->insert([
             'name' => $request->name ,
             'coordinates' => $request->coordinates ?? '',
             'adress_point' => $request->adress_point  ?? '',
@@ -29,7 +29,7 @@ class AdressContriller extends Controller
 
     function getAdress(Request $request)
     {
-        $adress = DB::table('adress')->select('name', 'id', 'coordinates', 'adress_point')->get();
+        $adress = DB::table('adresses')->select('name', 'id', 'coordinates', 'adress_point')->get();
 
         return response()->json(['data' => $adress], 200);
     }
@@ -44,7 +44,7 @@ class AdressContriller extends Controller
                 ]
             ], 401);
         }
-        DB::table('adress')->delete($id);
+        DB::table('adresses')->delete($id);
         return response()->json(null, 204);
     }
 }
