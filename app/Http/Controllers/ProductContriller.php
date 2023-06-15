@@ -112,8 +112,9 @@ class ProductContriller extends Controller
 
         return response()->json(['data' => $categories], 200);
     }
-    function getSearchProduct(Request $request)
+    function getCartProduct(Request $request)
     {
+        $categories = Product::whereIn('id', json_decode($request->products_buy))->get();
         return response()->json(['data' => $categories], 200);
     }
 
