@@ -18,8 +18,8 @@ class OrderResource extends JsonResource
             'id'=> $this->id,
             'user_id'=> $this->user_id,
             'description'=> $this->description,
-            'sum'=> $this->sum,
             'adress_id'=> $this->adress_id,
+            'products'=> $this->order_products,
         ];
     }
 }

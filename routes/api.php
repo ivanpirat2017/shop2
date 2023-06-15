@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdressContriller;
 use App\Http\Controllers\CategoriesContriller;
 use App\Http\Controllers\OrderContriller;
+use App\Http\Controllers\ProductContriller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,6 +53,12 @@ Route::middleware('auth:api')->get('/order', [OrderContriller::class ,'getOrder'
 
 
 
+/*Product*/
+Route::middleware('auth:api')->post('/add_product', [ProductContriller::class ,'addProduct']);
+Route::get('/product', [ProductContriller::class ,'getProduct']);
+Route::middleware('auth:api')->get('/product_delete/{id}', [ProductContriller::class ,'deleteProduct']);
+
+
 
 /*AUTH - USER */
 Route::post('/login', [AuthController::class ,'login']);
@@ -63,8 +70,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::middleware('auth:api')->post('/updateprofile', [UserController::class ,'updateprofile']);
-Route:: post('/tokenupdate', [AuthController::class ,'tokenUpdate']);
-Route::get('/sdfvsdfdsvfdscfdsvfsdvfdvfvdsfsds/{id}', [AuthController::class ,'verification']);
+
 Route::middleware('auth:api')->get('/authadmincheck', [AuthController::class ,'authAdminCheck']);
 Route::middleware('auth:api')->get('/authcheck', [AuthController::class ,'authCheck']);
 Route::middleware('auth:api')->get('/gettokens', [AuthController::class ,'getTokens']);

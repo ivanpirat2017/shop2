@@ -24,16 +24,22 @@ class OrderContriller extends Controller
         $products = DB::table('products')->whereIn('id', json_decode($request->products_buy))->get();
 
 
-        // DB::table('orders')->insert([
-        //     'user_id' => Auth::user()->user_token_id ,
-        //     'description' => $request->description ?? '',
-        //     'sum' => $request->sum  ,
-        //     'adress_id' => $request->adress_id ,
-        // ]);
 
+        $order = Order::create([
+            'user_id' => Auth::user()->user_token_id ,
+            'description' => $request->description ?? '',
+            'adress_id' => $request->adress_id ,
+        ]);
 
-        foreach ($products as $key) {
-
+        foreach ($products as $value) {
+               DB::table('ordered_products')->insert([
+                'product_id' => $value->id,
+                'orders_id' => $order->id,
+                'status' => 0,
+                'delivery' => date("Y-m-d H:i:s",strtotime('+3 days')) ,
+                'creating_product' => date("Y-m-d H:i:s"),
+                'price' => $value->price,
+        ]);
         }
 
 
@@ -42,7 +48,8 @@ class OrderContriller extends Controller
     }
     function getOrder(Request $request)
     {
-        $order = OrderResource::collection(Order::where('id', '=',Auth::user()->user_token_id)->get());
+        $order = OrderResource::collection(Order::where('user_id', '=',Auth::user()->user_token_id)->get());
+
         return response()->json(['data' => $order], 200);
     }
 }

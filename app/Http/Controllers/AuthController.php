@@ -17,39 +17,49 @@ class AuthController extends Controller
 {
     function login(Request $request)
     {
+        $messages = [
+        'name' => 'Имя',
+        'password' => 'Пароль',
+        'login' => 'Логин',
+
+    ];
+
+
         $valide = Validator::make($request->all(), [
             'email' => 'required|max:100|email',
         ]);
+
+
+        $valide->setAttributeNames($messages);
+
+
         if ($valide->fails()) {
             return  response()->json([
                 'error' => $valide->errors()
             ], 422);
         }
-        if ($user = User::where('email', '=', $request->email)->first()) {
-            if ($user->verification) {
-                Mail::send('authreg', ['userid' => $user->id, 'request' => $request], function ($message) use ($request, $user) {
-                    $message->to($request->email, $user->last_name . ' ' . $user->first_name)->subject('Ваш ключ авторизации');
-                    $message->from('buy@scooter-Kursk.ru', 'scooterKursk');
-                });
-                return  response()->json(null, 204);
+
+
+        $login = User::where('email', '=', $request->email)->first();
+        if ($login) {
+            if ($login->password == $request->password) {
+                $rand = Str::random(64);
+                $userToken =  Token::create([
+                    'user_token_id' => $login->id,
+                    'api_token' => $rand,
+                    'del' => false,
+                ]);
+
+                return  response()->json(["token"=>$userToken->api_token], 200);
             }
-            return response()->json([
-                'error' => [
-                    'code' => 401,
-                    'message' => 'Unauthorized',
-                    'email' => [
-                        'email  не подтвержден',
-                    ]
-                ]
-            ], 401);
+
         }
+
         return response()->json([
             'error' => [
                 'code' => 401,
                 'message' => 'Unauthorized',
-                'email' => [
-                    'Email некорректен',
-                ]
+                'data'=>['Неправильный логин или пароль']
             ]
         ], 401);
     }
@@ -64,6 +74,7 @@ class AuthController extends Controller
             'name' => 'required|max:100',
             'phone' => 'required|max:11',
             'email' => 'required|max:100|email|unique:users,email',
+            'password' => 'required|min:5',
         ]);
         $valide->setAttributeNames($messages);
         if ($valide->fails()) {
@@ -86,17 +97,6 @@ class AuthController extends Controller
             'api_token' => $rand,
             'del' => false,
         ]);
-
-
-
-        // User::where('email', '=', $request->email)->where('verification', '=', null)->delete();
-        // $userid =  User::create($request->all());
-
-        // Mail::send('authreg', ['userid' => $userid->id, 'request' => $request], function ($message) use ($request) {
-        //     $message->to($request->email, 'Artem')->subject('Подтвердите Email');
-        //     $message->from('buy@scooter-Kursk.ru', 'scooterKursk');
-        // });
-
 
         return  response()->json(["token"=>$userToken->api_token], 200);
     }
@@ -142,37 +142,4 @@ class AuthController extends Controller
         return  response()->json(['data' => Token::where('user_token_id', '=', Auth::user()->user_token_id)->where('del', '=', false)->get()], 200);
     }
 
-
-
-    public function tokenUpdate(Request $request)
-    {
-        Token::where('api_token', '=', $request->api_token)->update([
-            'browser' => $request->browser
-        ]);
-        return '';
-    }
-
-
-    public function verification(Request $request, $id)
-    {
-        $user = User::where('verificationkey', '=', $id)->first();
-        if ($user) {
-            if ($user->verification == false) {
-                $user->verification = true;
-                $user->save();
-            }
-
-            $rand = Str::random(64);
-            Token::create([
-                'user_token_id' => $user->id,
-                'api_token' => $rand,
-                'del' => false,
-            ]);
-            $key  = Str::random(64);
-            $user->verificationkey = $key;
-            $user->save();
-            return Redirect::to(URL::to('/authgenreratetoken/' . $rand));
-        }
-        return Redirect::to(URL::to('/'));
-    }
 }

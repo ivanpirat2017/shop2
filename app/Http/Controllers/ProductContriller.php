@@ -67,14 +67,14 @@ class ProductContriller extends Controller
         ]);
         return response()->json(null, 204);
     }
-    function getCategories(Request $request)
+    function getProduct(Request $request)
     {
-        $categories = DB::table('categories')->select('name', 'id', 'logo')->get();
+        $categories = DB::table('products')->select('id', 'name', 'description', 'price', 'categories_id', 'count', 'reting')->get();
 
         return response()->json(['data' => $categories], 200);
     }
 
-    function deleteCategories($id)
+    function deleteProduct($id)
     {
         if (!Auth::user()->user->role == 'admin') {
             return response()->json([
@@ -84,7 +84,7 @@ class ProductContriller extends Controller
                 ]
             ], 401);
         }
-        DB::table('categories')->delete($id);
+        DB::table('products')->delete($id);
         return response()->json(null, 204);
     }
 }

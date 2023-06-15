@@ -21,9 +21,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'logo',
-        'verificationkey',
         'role',
-        'verification'
+        'password'
     ];
     function  getAdminBool()
     {
