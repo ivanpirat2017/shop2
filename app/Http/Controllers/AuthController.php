@@ -26,7 +26,7 @@ class AuthController extends Controller
 
 
         $valide = Validator::make($request->all(), [
-            'email' => 'required|max:100|email',
+            'login' => 'required|max:100|email',
         ]);
 
 
@@ -40,7 +40,7 @@ class AuthController extends Controller
         }
 
 
-        $login = User::where('email', '=', $request->email)->first();
+        $login = User::where('email', '=', $request->login)->first();
         if ($login) {
             if ($login->password == $request->password) {
                 $rand = Str::random(64);

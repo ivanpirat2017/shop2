@@ -54,6 +54,8 @@ Route::middleware('auth:api')->get('/order', [OrderContriller::class ,'getOrder'
 
 
 /*Product*/
+Route::middleware('auth:api')->post('/edit_product', [ProductContriller::class ,'editProduct']);
+
 Route::middleware('auth:api')->post('/add_product', [ProductContriller::class ,'addProduct']);
 Route::get('/product', [ProductContriller::class ,'getProduct']);
 Route::middleware('auth:api')->get('/product_delete/{id}', [ProductContriller::class ,'deleteProduct']);

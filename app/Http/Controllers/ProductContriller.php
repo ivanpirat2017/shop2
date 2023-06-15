@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Product_img;
+
 class ProductContriller extends Controller
 {
     function addProduct(Request $request)
@@ -24,12 +26,7 @@ class ProductContriller extends Controller
                 'error' => $valide->errors()
             ], 422);
         }
-
-        // if (request()->hasFile('logo')) {
-        //     $logo = $request->logo ?  $request->file('logo')->store('public/images') : null;
-        // }
-
-        DB::table('products')->insert([
+        $product = Product::create([
             'name' => $request->name ,
             'description' => $request->description ,
             'price' => $request->price ,
@@ -38,6 +35,21 @@ class ProductContriller extends Controller
             'tags' => $request->tags ,
             'reting' => $request->reting ?? 0.000,
         ]);
+
+        $images =  $request->file('files');
+        if (request()->hasFile('files')) {
+
+            foreach ($images as $image) {
+                $fileImg = $image->store('public/images');
+                Product_img::create([
+                    'image' => $fileImg,
+                    'products_id' =>$product->id
+                ]);
+
+            }
+        }
+
+
         return response()->json(null, 204);
     }
 
@@ -54,23 +66,45 @@ class ProductContriller extends Controller
                 'error' => $valide->errors()
             ], 422);
         }
+        $product_old = DB::table('products')->find( $request->id );
 
-        $productId = DB::table('products')->find($request->id);
-        DB::table('products')->where('id', '=', $request->id)->update([
-            'name' => $request->name  ?? $productId->name,
-            'description' => $request->description  ?? $productId->description ,
-            'price' => $request->price  ?? $productId->price ,
-            'categories_id' => $request->categories_id  ?? $productId->categories_id ,
-            'count' => $request->count  ?? $productId->count ,
-            'tags' => $request->tags  ?? $productId->tags ,
-            'reting' => $request->reting  ?? $productId->reting  ,
-
+        Product::where('id', '=', $request->id)->update([
+            'name' => $request->name ??$product_old->name,
+            'description' => $request->description ??$product_old->description,
+            'price' => $request->price ??$product_old->price,
+            'categories_id' => $request->categories_id ??$product_old->categories_id,
+            'count' => $request->count ??$product_old->count,
+            'tags' => $request->tags ??$product_old->tags,
+            'reting' => $request->reting ??$product_old->reting,
         ]);
+
+        $images =  $request->file('files');
+        if (request()->hasFile('files')) {
+
+            foreach ($images as $image) {
+                $fileImg = $image->store('public/images');
+                Product_img::create([
+                    'image' => $fileImg,
+                    'products_id' =>$product_old->id
+                ]);
+
+            }
+        }
+
+
         return response()->json(null, 204);
     }
     function getProduct(Request $request)
     {
         $categories = Product::get();
+
+        return response()->json(['data' => $categories], 200);
+    }
+    function getSearchProduct(Request $request)
+    {
+        $search = $_GET['query'];
+
+        $categories = Product::orWhere('tags', 'like', '%' . $search . '%')->orWhere('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->get();
 
         return response()->json(['data' => $categories], 200);
     }
