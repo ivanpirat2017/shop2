@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 class ProductContriller extends Controller
 {
     function addProduct(Request $request)
@@ -69,7 +70,7 @@ class ProductContriller extends Controller
     }
     function getProduct(Request $request)
     {
-        $categories = DB::table('products')->select('id', 'name', 'description', 'price', 'categories_id', 'count', 'reting')->get();
+        $categories = Product::get();
 
         return response()->json(['data' => $categories], 200);
     }
