@@ -40,7 +40,7 @@ Route::middleware('auth:api')->get('/delete_categories/{id}', [CategoriesContril
 
 
 /*Adress*/
-Route::middleware('auth:api')->post('/adress', [AdressContriller::class ,'addAdress']);
+Route::middleware('auth:api')->post('/add_adress', [AdressContriller::class ,'addAdress']);
 Route::get('/adress', [AdressContriller::class ,'getAdress']);
 Route::middleware('auth:api')->get('/adress_delete/{id}', [AdressContriller::class ,'deleteAdress']);
 
@@ -49,6 +49,7 @@ Route::middleware('auth:api')->get('/adress_delete/{id}', [AdressContriller::cla
 Route::middleware('auth:api')->post('/add_order', [OrderContriller::class ,'addOrder']);
 Route::middleware('auth:api')->get('/order', [OrderContriller::class ,'getOrder']);
 // Route::middleware('auth:api')->get('/delete_order/{id}', [AdreOrderContrillerssContriller::class ,'deleteAdress']);
+Route::middleware('auth:api')->post('/odered_product', [OrderContriller::class ,'editOrderItem']);
 
 
 
@@ -58,8 +59,8 @@ Route::middleware('auth:api')->post('/edit_product', [ProductContriller::class ,
 
 Route::middleware('auth:api')->post('/add_product', [ProductContriller::class ,'addProduct']);
 Route::get('/product', [ProductContriller::class ,'getProduct']);
+Route::get('/product/{id}', [ProductContriller::class ,'getProductCatig']);
 Route::middleware('auth:api')->get('/product_delete/{id}', [ProductContriller::class ,'deleteProduct']);
-
 
 
 /*AUTH - USER */

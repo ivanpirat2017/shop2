@@ -31,7 +31,6 @@ class ProductContriller extends Controller
             'description' => $request->description ,
             'price' => $request->price ,
             'categories_id' => $request->categories_id ,
-            'count' => $request->count ,
             'tags' => $request->tags ,
             'reting' => $request->reting ?? 0.000,
         ]);
@@ -73,7 +72,6 @@ class ProductContriller extends Controller
             'description' => $request->description ??$product_old->description,
             'price' => $request->price ??$product_old->price,
             'categories_id' => $request->categories_id ??$product_old->categories_id,
-            'count' => $request->count ??$product_old->count,
             'tags' => $request->tags ??$product_old->tags,
             'reting' => $request->reting ??$product_old->reting,
         ]);
@@ -96,29 +94,32 @@ class ProductContriller extends Controller
     }
     function getProduct(Request $request)
     {
+
+        $search = $_GET['query'] ?? '';
+        if($search !="")
+        {
+            $categories = Product::orWhere('tags', 'like', '%' . $search . '%')->orWhere('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->get();
+            return response()->json(['data' => $categories], 200);
+        }
+
         $categories = Product::get();
+
+        return response()->json(['data' => $categories], 200);
+    }
+    function getProductCatig(Request $request,$id)
+    {
+        $categories = Product::where('categories_id', '=',  $id)->get();
 
         return response()->json(['data' => $categories], 200);
     }
     function getSearchProduct(Request $request)
     {
-        $search = $_GET['query'];
-
-        $categories = Product::orWhere('tags', 'like', '%' . $search . '%')->orWhere('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->get();
-
         return response()->json(['data' => $categories], 200);
     }
 
     function deleteProduct($id)
     {
-        if (!Auth::user()->user->role == 'admin') {
-            return response()->json([
-                'error' => [
-                    'code' => 401,
-                    'message' => 'not admin',
-                ]
-            ], 401);
-        }
+
         DB::table('products')->delete($id);
         return response()->json(null, 204);
     }

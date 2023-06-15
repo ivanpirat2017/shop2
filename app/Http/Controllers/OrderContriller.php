@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Ordered_product;
 class OrderContriller extends Controller
 {
     function addOrder(Request $request)
@@ -42,14 +43,19 @@ class OrderContriller extends Controller
         ]);
         }
 
-
-
+        return response()->json(null, 204);
+    }
+    function editOrderItem(Request $request)
+    {
+        Ordered_product::where('id', '=', $request->id)->update([
+            'status' => $request->status ,
+        ]);
         return response()->json(null, 204);
     }
     function getOrder(Request $request)
     {
         $order = OrderResource::collection(Order::where('user_id', '=',Auth::user()->user_token_id)->get());
 
-        return response()->json(['data' => $order], 200);
+        return response()->json(['data' => $order, ], 200);
     }
 }

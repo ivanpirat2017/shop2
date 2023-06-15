@@ -13,7 +13,6 @@ class Product extends Model
         'price',
         'products_id',
         'tags',
-        'count',
         'name',
         'description',
         'reting',

@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->text('tags')->nullable();
-            $table->integer('count')->nullable()->default(0);
             $table->integer('price');
             $table->double('reting')->nullable()->default(0.000);
             $table->foreignId('categories_id')->constrained('categories')->cascadeOnDelete();

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Categorie;
 class CategoriesContriller extends Controller
 {
     function addCategories(Request $request)
@@ -13,12 +14,13 @@ class CategoriesContriller extends Controller
         $valide = Validator::make($request->all(), [
             'name' => 'required|max:100|unique:categories,name',
         ]);
+
         if ($valide->fails()) {
             return  response()->json([
                 'error' => $valide->errors()
             ], 422);
         }
-        
+
         if (request()->hasFile('logo')) {
             $logo = $request->logo ?  $request->file('logo')->store('public/images') : null;
         }
@@ -33,7 +35,7 @@ class CategoriesContriller extends Controller
     function editCategories(Request $request)
     {
         $valide = Validator::make($request->all(), [
-            'name' => 'required|max:100|unique:adress,name',
+            'name' => 'required|max:100|unique:categories,name',
         ]);
         if ($valide->fails()) {
             return  response()->json([
@@ -45,9 +47,9 @@ class CategoriesContriller extends Controller
             $logo = $request->logo ?  $request->file('logo')->store('public/images') : null;
         }
 
-        DB::table('categories')->insert([
+        Categorie::where('id', '=', $request->id)->update([
             'name' => $request->name ,
-            'logo' => $logo ?? ''
+            'logo' =>  $logo ?? ''
         ]);
         return response()->json(null, 204);
     }
