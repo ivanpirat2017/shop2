@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <title>Laravel</title>
+        <link rel="stylesheet" href="{{asset('css/dark.css')}}">
+        <link rel="shortcut icon " type="image/x-icon" href="{{ asset('images/logo.png') }}">
+        <title>KurskSam</title>
 
 
     </head>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdressContriller;
 use App\Http\Controllers\CategoriesContriller;
 use App\Http\Controllers\OrderContriller;
 use App\Http\Controllers\ProductContriller;
+ 
 /*
 |--------------------------------------------------------------------------
 | API Routes
