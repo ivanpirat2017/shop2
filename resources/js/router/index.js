@@ -9,7 +9,7 @@ import Loader from '../components/Loader.vue'
 import Categoris from './routers/Categoris.vue'
 import Profile from './routers/Profile.vue'
 import Cart from './routers/Cart.vue'
-
+import ProductPage from './routers/ProductPage.vue'
 const routes = [
     {
         path: '/:pathMatch(.*)*',
@@ -60,6 +60,10 @@ const routes = [
         path: '/cart',
         name: 'Cart',
         component: Cart
+    }, {
+        path: '/product/:id',
+        name: 'ProductPage',
+        component: ProductPage
     },
 ]
 const router = createRouter({

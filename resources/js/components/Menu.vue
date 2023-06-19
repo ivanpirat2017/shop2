@@ -38,8 +38,6 @@
                 </router-link>
                 <img height="30" @click="$router.push('/'); "
                     src="../../static/img/software-engineer.png" />
-                <img @click="light()" v-if="day" height="30" src="../../static/img/sun.png" />
-                <img @click="dark()" v-else height="30" src="../../static/img/moon.png" />
             </div>
         </div>
 </div>

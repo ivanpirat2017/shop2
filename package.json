@@ -20,8 +20,11 @@
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
+        "@ssense/vue-carousel": "^0.6.5",
         "vue": "^3.2.31",
+        "vue-carousel-3d": "^1.0.1",
         "vue-router": "^4.0.15",
+        "vue3-carousel": "^0.3.1",
         "vuex": "^4.0.2",
         "webpack": "^5.72.0"
     }

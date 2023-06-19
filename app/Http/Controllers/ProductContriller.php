@@ -56,7 +56,7 @@ class ProductContriller extends Controller
     {
         $valide = Validator::make($request->all(), [
             'id' => 'required',
-            'name' => 'required|max:255|unique:products,name',
+            'name' => 'max:255|unique:products,name',
         ]);
 
 
@@ -111,6 +111,12 @@ class ProductContriller extends Controller
         $categories = Product::where('categories_id', '=',  $id)->get();
 
         return response()->json(['data' => $categories], 200);
+    }
+    function getProductItem(Request $request,$id)
+    {
+        $product = Product::find($id);
+
+        return response()->json(['data' => $product], 200);
     }
     function getCartProduct(Request $request)
     {

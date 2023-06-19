@@ -3,11 +3,16 @@
     <div class="MenuTovarBox">
         <img :src="img" alt="">
         <div>
-            <h4>{{ productItem.name }}</h4>
-            <div class="text">
+            <div class="MenuTovarBoxText">
+                <h4>{{ productItem.name }}</h4>
                 <h5>{{ productItem.price }} p</h5>
             </div>
-            <button class="btn-menu">Перейти</button>
+            <div class="MenuTovarBoxBtn">
+                <button class="btn-cart"><img src="../../../static/img/shopping-cart.png" alt=""></button>
+                <button class="btn-link">Перейти</button>
+
+            </div>
+
         </div>
     </div>
 </template>
@@ -46,7 +51,7 @@ export default {
 
         &Box {
 
-            max-width: 300px;
+            max-width: 200px;
             border-radius: 5px;
             box-shadow: 7px 9px 8px 0px rgba(34, 60, 80, 0.2);
             background: rgb(255, 255, 255);
@@ -56,22 +61,55 @@ export default {
             padding: 10px;
 
             @media (max-width: 700px) {
-                max-width: 200px;
+                max-width: 150px;
             }
 
-            div {
+            img {
+                height: 200px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+
+            &Btn {
+                display: flex;
+                gap: 15px;
+                justify-content: space-between;
+                button {
+
+                    height: 40px;
+                    border-radius: 5px;
+                    color: white;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        filter: invert(1);
+                    }
+                }
+
+                .btn-cart {
+                    background: #05c855;
+                    width: 40px;
+                }
+
+                .btn-link {
+                    background: #2a1af4;
+                    flex: 100px;
+                }
+            }
+
+            &Text {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 gap: 5px;
 
-                .btn-menu {
-                    width: 100%;
-                    height: 40px;
-                    border-radius: 5px;
-                    background: rgb(21, 134, 209);
-                    color: white;
+                h4 {
+                    font-size: 1rem;
                 }
+
+
 
             }
         }
