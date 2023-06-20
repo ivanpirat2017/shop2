@@ -61,7 +61,7 @@ Route::middleware('auth:api')->post('/edit_product', [ProductContriller::class ,
 Route::middleware('auth:api')->post('/add_product', [ProductContriller::class ,'addProduct']);
 Route::get('/product', [ProductContriller::class ,'getProduct']);
 Route::get('/product/{id}', [ProductContriller::class ,'getProductCatig']);
-Route::get('/product_item/{id}', [ProductContriller::class ,'getProductCatig']);
+Route::get('/product_item/{id}', [ProductContriller::class ,'getProductItem']);
 Route::middleware('auth:api')->get('/product_delete/{id}', [ProductContriller::class ,'deleteProduct']);
 Route::post('/cart', [ProductContriller::class ,'getCartProduct']);
 

@@ -114,6 +114,7 @@ class ProductContriller extends Controller
     }
     function getProductItem(Request $request,$id)
     {
+  
         $product = Product::find($id);
 
         return response()->json(['data' => $product], 200);

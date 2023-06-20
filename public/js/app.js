@@ -17881,7 +17881,7 @@ __webpack_require__.r(__webpack_exports__);
         return r.json();
       }).then(function (r) {
         if (r.data) {
-          _this.productData = r.data[0];
+          _this.productData = r.data;
 
           if (_this.productData.imgs.length > 0) {
             _this.img = _this.productData.imgs[0].image;

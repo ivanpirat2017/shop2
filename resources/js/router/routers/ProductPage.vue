@@ -46,7 +46,7 @@ export default {
         getProduct() {
             fetch("/api/product_item/" + this.$route.params.id).then(r => r.json()).then(r => {
                 if (r.data) {
-                    this.productData = r.data[0]
+                    this.productData = r.data
 
                     if (this.productData.imgs.length > 0) {
 
