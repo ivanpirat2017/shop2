@@ -8,8 +8,9 @@
                 <h5>{{ productItem.price }} p</h5>
             </div>
             <div class="MenuTovarBoxBtn">
-                <button class="btn-cart"><img src="../../../static/img/shopping-cart.png" alt=""></button>
-                <button class="btn-link">Перейти</button>
+                <button :class="!isCart ? ' btn-cart' : 'btn-cart-off'" @click=" addCart()"><img
+                        src="../../../static/img/shopping-cart.png" alt=""></button>
+                <button class="btn-link" @click="$router.push('/product/' + productItem.id)">Перейти</button>
 
             </div>
 
@@ -24,6 +25,25 @@ export default {
     data() {
         return {
             img: ''
+        }
+    },
+    computed: {
+        isCart() {
+            if (this.$root.cart.indexOf(this.productItem.id) >= 0) {
+                return true
+            }
+            return false
+        }
+    },
+    methods: {
+        addCart() {
+            if (this.$root.cart.indexOf(this.productItem.id) >= 0) {
+                this.$root.cart.splice(this.$root.cart.indexOf(this.productItem.id), 1)
+            }
+            else {
+                this.$root.cart.push(this.productItem.id)
+            }
+            localStorage.setItem("cart", JSON.stringify(this.$root.cart))
         }
     },
     mounted() {
@@ -51,7 +71,7 @@ export default {
 
         &Box {
 
-            max-width: 200px;
+            max-width: 250px;
             border-radius: 5px;
             box-shadow: 7px 9px 8px 0px rgba(34, 60, 80, 0.2);
             background: rgb(255, 255, 255);
@@ -74,6 +94,7 @@ export default {
                 display: flex;
                 gap: 15px;
                 justify-content: space-between;
+
                 button {
 
                     height: 40px;
@@ -90,6 +111,11 @@ export default {
 
                 .btn-cart {
                     background: #05c855;
+                    width: 40px;
+                }
+
+                .btn-cart-off {
+                    background: #fa5c0d;
                     width: 40px;
                 }
 

@@ -1,6 +1,6 @@
 <template>
-<div class="fx">
-    <div class="serach-box" @click="boxMneu = !boxMneu" :class="{
+    <div class="fx">
+        <div class="serach-box" @click="boxMneu = !boxMneu" :class="{
             'serach-box-close': !boxMneu,
             'serach-box-open': boxMneu,
         }">
@@ -31,17 +31,17 @@
                     <p class="c-gf P-hover-ing">Профиль</p>
                 </router-link>
                 <router-link @click="boxMneu = !boxMneu" to="/cart">
-                    <p class="c-gf P-hover-ing">Корзина</p>
+                    <p class="c-gf P-hover-ing">Корзина
+                    <div v-if="$root.cart.length != 0" class="cartboxinfo background-oreng"></div>
+                    </p>
                 </router-link>
                 <router-link @click="boxMneu = !boxMneu" to="/">
                     <p class="c-gf P-hover-ing">Доставка</p>
                 </router-link>
-                <img height="30" @click="$router.push('/'); "
-                    src="../../static/img/software-engineer.png" />
+                <img height="30" @click="$router.push('/');" src="../../static/img/software-engineer.png" />
             </div>
         </div>
-</div>
-
+    </div>
 </template>
 
 <script>
@@ -55,38 +55,8 @@ export default {
             day: true,
         };
     },
-    methods:{
-        light() {
-            function changeCSS(cssFile, cssLinkIndex) {
-                var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-                var newlink = document.createElement("link");
-                newlink.setAttribute("rel", "stylesheet");
-                newlink.setAttribute("type", "text/css");
-                newlink.setAttribute("href", cssFile);
-                document
-                    .getElementsByTagName("head")
-                    .item(0)
-                    .replaceChild(newlink, oldlink);
-            }
-            changeCSS("/css/light.css", 1);
-            this.day = false;
-        },
-        dark() {
-            function changeCSS(cssFile, cssLinkIndex) {
-                var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-                var newlink = document.createElement("link");
-                newlink.setAttribute("rel", "stylesheet");
-                newlink.setAttribute("type", "text/css");
-                newlink.setAttribute("href", cssFile);
+    methods: {
 
-                document
-                    .getElementsByTagName("head")
-                    .item(0)
-                    .replaceChild(newlink, oldlink);
-            }
-            changeCSS("/css/dark.css", 1);
-            this.day = true;
-        },
         searchhoverbool(boolcnt) {
             this.searchhover = boolcnt;
         },

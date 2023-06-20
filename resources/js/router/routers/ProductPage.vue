@@ -9,6 +9,13 @@
                             <img :src="'/storage/' + slide.image" alt="" @click="setImg(slide.image)"
                                 v-for="slide in  productData.imgs" :key="slide">
                         </div>
+                        <h4>Цена:{{ productData.price }}Р</h4>
+                        <div class="ProductPageCartBuy">
+                            <button class="ProductPageCartBuyCart"><img src="../../../static/img/shopping-cart.png" alt="">
+                                купить</button>
+
+                        </div>
+
                     </div>
 
                     <div>
@@ -17,12 +24,10 @@
                     </div>
 
                 </div>
-                <div class="ProductPageCartBuy">
-                    <button class="ProductPageCartBuyCart"><img src="../../../static/img/shopping-cart.png" alt="">
-                        купить</button>
 
-                </div>
 
+            </div>
+            <div class="ProductPageCartComment">
 
             </div>
         </div>
@@ -77,7 +82,7 @@ export default {
         background: white;
 
         &Buy {
-            padding: 20px 0;
+            padding: 5px 0;
 
             &Cart {
                 background: #05c855;
@@ -97,6 +102,7 @@ export default {
                     height: 100%;
                     object-fit: contain;
                     filter: invert(1);
+                    cursor: pointer;
                 }
             }
         }
@@ -108,7 +114,7 @@ export default {
 
 
             &Slider {
-                height: 510px;
+
                 width: 300px;
                 display: flex;
                 flex-direction: column;
@@ -119,6 +125,7 @@ export default {
                     border-radius: 10px;
                     object-fit: contain;
                     padding-bottom: 10px;
+                    cursor: pointer;
                 }
             }
 
@@ -134,6 +141,7 @@ export default {
                     object-fit: contain;
                     opacity: 0.5;
                     transition: 0.3s;
+                    cursor: pointer;
 
                     &:hover {
                         opacity: 1;

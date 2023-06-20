@@ -48,11 +48,11 @@ export default {
 <style lang="scss">
 .Home {
     &Products {
-        padding:  5px 0 10px 0;
+        padding: 5px 0 10px 0;
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: start;
     }
 }
 
