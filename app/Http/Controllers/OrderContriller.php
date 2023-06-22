@@ -24,8 +24,7 @@ class OrderContriller extends Controller
         }
         $products = DB::table('products')->whereIn('id', json_decode($request->products_buy))->get();
 
-
-
+ 
         $order = Order::create([
             'user_id' => Auth::user()->user_token_id ,
             'description' => $request->description ?? '',
