@@ -11,7 +11,8 @@
                         </div>
                         <h4>Цена:{{ productData.price }}Р</h4>
                         <div class="ProductPageCartBuy">
-                            <button class="ProductPageCartBuyCart"><img src="../../../static/img/shopping-cart.png" alt="" >
+                            <button :class="!isCart ? ' ProductPageCartBuyCart' : 'ProductPageCartBuyCart_off'"
+                                @click="addCart()"><img src="../../../static/img/shopping-cart.png" alt="">
                                 купить</button>
 
                         </div>
@@ -43,6 +44,18 @@ export default {
 
     },
     methods: {
+        addCart() {
+            if (!this.productData) {
+                return false
+            }
+            if (this.$root.cart.indexOf(this.productData.id) >= 0) {
+                this.$root.cart.splice(this.$root.cart.indexOf(this.productData.id), 1)
+            }
+            else {
+                this.$root.cart.push(this.productData.id)
+            }
+            localStorage.setItem("cart", JSON.stringify(this.$root.cart))
+        },
         getProduct() {
             fetch("/api/product_item/" + this.$route.params.id).then(r => r.json()).then(r => {
                 if (r.data) {
@@ -59,10 +72,20 @@ export default {
             this.img = img
         }
     },
+    computed: {
+        isCart() {
+            if (this.$root.cart.indexOf(this.productData.id) >= 0) {
+                return true
+            }
+            return false
+        }
+    },
+
     data() {
         return {
             productData: {},
-            img: ''
+            img: '',
+  
         }
     }
 }
@@ -86,6 +109,11 @@ export default {
 
             &Cart {
                 background: #05c855;
+
+            }
+
+            &Cart_off {
+                background: #e2760a;
 
             }
 

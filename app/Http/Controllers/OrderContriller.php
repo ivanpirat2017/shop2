@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ordered_product;
+use Illuminate\Support\Str;
 class OrderContriller extends Controller
 {
     function addOrder(Request $request)
@@ -24,11 +25,12 @@ class OrderContriller extends Controller
         }
         $products = DB::table('products')->whereIn('id', json_decode($request->products_buy))->get();
 
- 
+
         $order = Order::create([
             'user_id' => Auth::user()->user_token_id ,
             'description' => $request->description ?? '',
             'adress_id' => $request->adress_id ,
+            'code' => Str::random(8),
         ]);
 
         foreach ($products as $value) {
@@ -53,8 +55,9 @@ class OrderContriller extends Controller
     }
     function getOrder(Request $request)
     {
-        $order = OrderResource::collection(Order::where('user_id', '=',Auth::user()->user_token_id)->get());
 
-        return response()->json(['data' => $order, ], 200);
+        $orders = OrderResource::collection(Order::where('user_id', '=',Auth::user()->user_token_id)->get());
+
+        return response()->json(['data' => $orders ], 200);
     }
 }

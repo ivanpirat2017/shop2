@@ -6,11 +6,14 @@
                 <CartProductItem v-for="(product, index) in productData.data" :key="index" :product="product"
                     :getProduct="getProduct" />
             </div>
-            <h3 class="color-gray-f" v-if="productData.data != 0">
-                Приблизительная сумма к оплате
-                <span class="color-oreng">{{ productData.sum }}р</span>
+            <h3 class="color-gray-f" v-if="productData.data == 0">
+                У вас нет товаров в корзине
             </h3>
-            <div class="CartPreviewBtns" v-if="productData.data != 0">
+            <div class="CartPreviewBtns" v-else>
+                <h3 class="color-gray-f">
+                    Приблизительная сумма к оплате
+                    <span class="color-oreng">{{ productData.sum }}р</span>
+                </h3>
                 <select v-model="adress_id" class="background-black color-gray-f">
                     <option disabled value="0">Адрес доставки</option>
                     <option :value="adress.id" v-for="adress in arrayAdress" :key="adress.id">{{ adress.name }}</option>
@@ -126,8 +129,10 @@ export default {
 
 .CartPreview {
     &Btns {
+        padding: 10px 0;
         display: flex;
         gap: 10px;
+        flex-wrap: wrap;
 
         button {}
     }

@@ -14,12 +14,18 @@ class OrderResource extends JsonResource
      */
     public function toArray($request)
     {
+        $sum=0;
+        foreach ($this->order_products as $product) {
+            $sum+=$product->price;
+        }
         return [
             'id'=> $this->id,
             'user_id'=> $this->user_id,
             'description'=> $this->description,
             'adress'=> $this->adress,
             'products'=> $this->order_products,
+            'code'=> $this->code,
+            "sum"=> $sum
         ];
     }
 }

@@ -10,6 +10,7 @@ import Categoris from "./routers/Categoris.vue";
 import Profile from "./routers/Profile.vue";
 import Cart from "./routers/Cart.vue";
 import ProductPage from "./routers/ProductPage.vue";
+import FilterCategoris from "./routers/FilterCategoris.vue";
 export const AUTH_CHECK = "/api/authcheck";
 export const AUTH_ADMIN_CHECK = "/api/authcheck";
 
@@ -88,6 +89,11 @@ const routes = [
         path: "/product/:id",
         name: "ProductPage",
         component: ProductPage,
+    },
+    {
+        path: "/categoris/:name/:id",
+        name: "FilterCategoris",
+        component: FilterCategoris,
     },
 ];
 const router = createRouter({

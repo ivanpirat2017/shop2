@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->text('description')->nullable();
+            $table->string('code')->nullable();
             $table->foreignId('adress_id')->constrained('adresses')->cascadeOnDelete();
             $table->timestamps();
         });
