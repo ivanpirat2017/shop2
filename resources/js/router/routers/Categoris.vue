@@ -3,8 +3,8 @@
         <div class="p-t">
             <div class=" Categoris">
                 <div class="Categorisblock" v-for="categor in categoris" :key="categor.id"
-                    @click="$router.push('/categoris/' + categor.name +'/' + categor.id )">
-                    <img src="../../../static/img/carting.png" alt="">
+                    @click="$router.push('/categoris/' + categor.name + '/' + categor.id)">
+                    <img :src="categor.logo" alt="">
                     <h3>{{ categor.name }}</h3>
                 </div>
             </div>
