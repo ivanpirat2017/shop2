@@ -11,7 +11,7 @@
                         </div>
                         <h4>Цена:{{ productData.price }}Р</h4>
                         <div class="ProductPageCartBuy">
-                            <button class="ProductPageCartBuyCart"><img src="../../../static/img/shopping-cart.png" alt="">
+                            <button class="ProductPageCartBuyCart"><img src="../../../static/img/shopping-cart.png" alt="" >
                                 купить</button>
 
                         </div>

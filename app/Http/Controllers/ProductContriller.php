@@ -96,9 +96,10 @@ class ProductContriller extends Controller
     {
 
         $search = $_GET['query'] ?? '';
+        $limit = $_GET['limit'] ?? '30';
         if($search !="")
         {
-            $categories = Product::orWhere('tags', 'like', '%' . $search . '%')->orWhere('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->get();
+            $categories = Product::orWhere('tags', 'like', '%' . $search . '%')->orWhere('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->limit( $limit)->get();
             return response()->json(['data' => $categories], 200);
         }
 
@@ -114,15 +115,20 @@ class ProductContriller extends Controller
     }
     function getProductItem(Request $request,$id)
     {
-  
+
         $product = Product::find($id);
 
         return response()->json(['data' => $product], 200);
     }
     function getCartProduct(Request $request)
     {
-        $categories = Product::whereIn('id', json_decode($request->products_buy))->get();
-        return response()->json(['data' => $categories], 200);
+        $products = Product::whereIn('id', json_decode($request->products_buy))->get();
+
+        $sum=0;
+        foreach ($products as $product) {
+            $sum+=$product->price;
+        }
+        return response()->json(['data' => $products,"sum"=> $sum], 200);
     }
 
     function deleteProduct($id)

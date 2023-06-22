@@ -60,8 +60,8 @@ export default {
     padding: 15px;
 
     @media screen and (max-width: 1100px) {
-        height: 100%;
         flex-direction: column;
+        max-width: 400px;
     }
 
     .img-product {
