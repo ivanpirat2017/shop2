@@ -9,7 +9,10 @@
                             <img :src="'/storage/' + slide.image" alt="" @click="setImg(slide.image)"
                                 v-for="slide in  productData.imgs" :key="slide">
                         </div>
+                        <div class="Block"></div>
+                        <h4>Рейтиг:{{ productData.reting }}</h4>
                         <h4>Цена:{{ productData.price }}Р</h4>
+                        <div class="Block"></div>
                         <div class="ProductPageCartBuy">
                             <button :class="!isCart ? ' ProductPageCartBuyCart' : 'ProductPageCartBuyCart_off'"
                                 @click="addCart()"><img src="../../../static/img/shopping-cart.png" alt="">
@@ -21,7 +24,9 @@
 
                     <div>
                         <h2>{{ productData.name }}</h2>
+                        <div class="Block"></div>
                         <p>{{ productData.description }}</p>
+                        <div class="Block"></div>
                     </div>
 
                 </div>
@@ -85,7 +90,7 @@ export default {
         return {
             productData: {},
             img: '',
-  
+
         }
     }
 }
@@ -137,12 +142,12 @@ export default {
 
         &Title {
             display: flex;
-
             gap: 20px;
 
-
+            .Block{
+                border: black solid 2px;
+            }
             &Slider {
-
                 width: 300px;
                 display: flex;
                 flex-direction: column;

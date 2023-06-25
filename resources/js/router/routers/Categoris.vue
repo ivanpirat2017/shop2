@@ -1,10 +1,11 @@
 <template>
-    <div class=" cnt">
+    <div class="cnt">
         <div class="p-t">
+            <h3>Категория товаров</h3>
             <div class=" Categoris">
                 <div class="Categorisblock" v-for="categor in categoris" :key="categor.id"
                     @click="$router.push('/categoris/' + categor.name + '/' + categor.id)">
-                    <img :src="categor.logo" alt="">
+                    <img :src="'/storage/' + categor.logo" alt="">
                     <h3>{{ categor.name }}</h3>
                 </div>
             </div>
@@ -51,9 +52,11 @@ export default {
         padding: 2%;
         background: white;
         border-radius: 10px;
+        cursor: pointer;
 
         img {
             width: 100%;
+            border-radius: 10px;
         }
     }
 }

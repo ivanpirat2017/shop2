@@ -3,7 +3,7 @@
         <div class="p-t">
             <div class="Profile">
                 <h1>Кабинет заказов</h1>
-                <h3>Здравствуйте,Иван</h3>
+                <h3>Здравствуйте,Артем</h3>
                 <div class="ProfileItems" v-if="orders != 0">
                     <div class="ProfileItemsOrder" v-for="order in orders" :key="order.id">
                         <h3>Заказ: <span>{{ order.code }}</span></h3>
@@ -13,7 +13,6 @@
                         <h5>Адрес доставки {{ order.adress.adress_point }}</h5>
                         <h4>Сумма заказа {{ order.sum }}р</h4>
                     </div>
-
                 </div>
                 <h3 class="color-gray-f" v-else>
                     У вас нет заказов

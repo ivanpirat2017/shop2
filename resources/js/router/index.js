@@ -11,6 +11,10 @@ import Profile from "./routers/Profile.vue";
 import Cart from "./routers/Cart.vue";
 import ProductPage from "./routers/ProductPage.vue";
 import FilterCategoris from "./routers/FilterCategoris.vue";
+import Worker from "./routers/Worker.vue";
+import AppCategoris from "./routers/Worker/AppCategoris.vue";
+import AppProduct from "./routers/Worker/AppProduct.vue";
+import AppOrders from "./routers/Worker/AppOrders.vue";
 export const AUTH_CHECK = "/api/authcheck";
 export const AUTH_ADMIN_CHECK = "/api/authcheck";
 
@@ -94,6 +98,37 @@ const routes = [
         path: "/categoris/:name/:id",
         name: "FilterCategoris",
         component: FilterCategoris,
+    },
+    {
+        path: "/worker",
+        name: "Worker",
+        component: Worker,
+        children: [
+            {
+            path: 'content',
+            name: 'AppCategoris',
+                component: AppCategoris,
+            meta: {
+                    name: 'admin'
+                }
+            },
+            {
+            path: 'orders',
+            name: 'AppOrders',
+                component: AppOrders,
+            meta: {
+                    name: 'admin'
+                }
+            },
+            {
+            path: 'tovar',
+            name: 'AppProduct',
+                component: AppProduct,
+            meta: {
+                    name: 'admin'
+                }
+            },
+        ]
     },
 ];
 const router = createRouter({

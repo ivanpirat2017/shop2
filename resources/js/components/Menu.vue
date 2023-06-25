@@ -35,10 +35,8 @@
                     <div v-if="$root.cart.length != 0" class="cartboxinfo background-oreng"></div>
                     </p>
                 </router-link>
-                <router-link @click="boxMneu = !boxMneu" to="/">
-                    <p class="c-gf P-hover-ing">Доставка</p>
-                </router-link>
-                <img height="30" @click="$router.push('/');" src="../../static/img/software-engineer.png" />
+                <img height="30" @click="$router.push('/worker'); oxMneu = !boxMneu" v-if="$root.role == 'admin'"
+                src="../../static/img/software-engineer.png"  />
             </div>
         </div>
     </div>
